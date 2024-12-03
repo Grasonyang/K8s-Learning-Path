@@ -1,0 +1,75 @@
+version: '3.7'
+
+services:
+  k8s-master:
+    container_name: k8s-master
+    hostname: k8s-master
+    build:
+      context: .  # Ensure my-service.service is in the context directory
+      dockerfile: Node.dockerfile
+    privileged: true
+    deploy:
+      resources:
+        limits:
+          memory: 20g
+          cpus: "2.0"
+    ports:
+      - "6443:6443"  # Expose Kubernetes API server on host port 6443
+    networks:
+      k8s-net:
+        ipv4_address: 192.168.0.10
+    command: ["/sbin/init"]
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  k8s-node1:
+    container_name: k8s-node1
+    hostname: k8s-node1
+    build:
+      context: .  # Ensure my-service.service is in the context directory
+      dockerfile: Node.dockerfile
+    privileged: true
+    deploy:
+      resources:
+        limits:
+          memory: 20g
+          cpus: "2.0"
+    ports:
+      - "6444:6443"  # Expose Kubernetes API server on a different host port
+    networks:
+      k8s-net:
+        ipv4_address: 192.168.0.11
+    command: ["/sbin/init"]
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  k8s-node2:
+    container_name: k8s-node2
+    hostname: k8s-node2
+    build:
+      context: .  # Ensure my-service.service is in the context directory
+      dockerfile: Node.dockerfile
+    privileged: true
+    deploy:
+      resources:
+        limits:
+          memory: 20g
+          cpus: "2.0"
+    ports:
+      - "6445:6443"  # Expose Kubernetes API server on a different host port
+    networks:
+      k8s-net:
+        ipv4_address: 192.168.0.12
+    command: ["/sbin/init"]
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+networks:
+  k8s-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16
