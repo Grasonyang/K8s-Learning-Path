@@ -14,7 +14,7 @@ Kind 是一種使用 Docker 容器節點運行本地 Kubernetes 集群的工具�
 - Kind 需要 Kubernetes 配置文件來設置集群。
 
 ## 步驟
-1. **安裝 Kind**：按照 [Kind GitHub 存儲庫](https://github.com/kubernetes-sigs/kind#installation-and-usage)中的安裝說明進行安裝。
+1. **安裝 Kind**：按照 [Kind 安裝方法](https://chatgpt.com/share/676a9478-9d7c-8011-8af4-90976aba2e1a)中的安裝說明進行安裝。
 2. **創建配置文件**：為多節點集群創建 YAML 配置文件。
     ```yaml
     kind: Cluster
