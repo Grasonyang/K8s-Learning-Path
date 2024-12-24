@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linear-regression-worker
+  labels:
+    app: linear-regression
+spec:
+  replicas: 4 # 每個 worker 節點兩個 pod，總共 4 個
+  selector:
+    matchLabels:
+      app: linear-regression
+  template:
+    metadata:
+      labels:
+        app: linear-regression
+    spec:
+      containers:
+      - name: linear-regression-worker
+        image: refte0/linear-regression-worker:latest
+        env:
+        - name: WORKER_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: TOTAL_WORKERS
+          value: "4"
