@@ -27,7 +27,7 @@ def train(x, y, learning_rate=0.01, epochs=1000):
 
 if __name__ == '__main__':
     pod_name = os.environ.get('WORKER_ID', '')
-    total_workers = int(os.environ.get('TOTAL_WORKERS', 4))  # 每个 worker 运行两个 pod，所以 total worker = 2*2 = 4
+    total_workers = int(os.environ.get('TOTAL_WORKERS', 4))  # 每个 worker 運行兩個 pod，所以 total worker = 2*2 = 4
 
     # 使用 hash 值作为 worker ID
     hashed_name = hashlib.md5(pod_name.encode()).hexdigest()
